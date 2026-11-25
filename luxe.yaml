@@ -4,6 +4,8 @@
 substitutions:
     startup_sound_file: assets/startup_24k.flac
     listening_sound_file: assets/listening_24k.flac
+    # Vittil (https://vittil.io): the project key from Settings in the Vittil app, yours to set.
+    vittil_project_key: ecr_your_project_key
 
 esphome:
   name: muse-luxe
@@ -93,6 +95,13 @@ external_components:
       url: https://github.com/RASPIAUDIO/esphomeLuxe
       ref: 192372ff59b560a74aa547dc26af609918fcc9d6
     components: [es8388]
+  - source: github://vittil-io/vittil
+    components: [vittil]
+
+# Crash reports: when the firmware panics the coredump is kept in flash and sent to
+# app.vittil.io on the next boot, decoded there against this build's ELF.
+vittil:
+  project_key: ${vittil_project_key}
 
 i2c:
   sda: GPIO18
